@@ -61,6 +61,13 @@ namespace SpyDuhApiProject2.DataAccess
             },
         };
 
+        //Spy MapFromReader(SqlDataReader reader)
+        //{
+        //    var spy = new Spy();
+        //    spy.Id = reader[reader]
+        //    spy.AboutMe = reader["AboutMe"].ToString();
+        //}
+
         internal Spy GetById(Guid spyId)
         {
             return _spies.FirstOrDefault(spy => spy.Id == spyId);
@@ -69,7 +76,25 @@ namespace SpyDuhApiProject2.DataAccess
         internal IEnumerable<Spy> GetAll()
         {
             using var connection = new SqlConnection("Server = localhost; Database = SpyDuhDB; Trusted_Connection = True;");
-            //return _spies;
+            connection.Open();
+
+            var cmd = connection.CreateCommand();
+            cmd.CommandText = @"Select * From Spies";
+
+            var reader = cmd.ExecuteReader();
+            var spies = new List<Spy>();
+
+            while (reader.Read())
+            {
+                var spy = new Spy();
+                spy.Id = reader.GetGuid(0);
+                spy.Alias = reader["Alias"].ToString();
+                spy.AboutMe = reader["AboutMe"].ToString();
+
+                spies.Add(spy);
+            }
+
+            return spies;
         }
     }
 }
