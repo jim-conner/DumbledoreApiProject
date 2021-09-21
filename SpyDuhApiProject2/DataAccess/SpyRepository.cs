@@ -1,6 +1,7 @@
 ﻿using SpyDuhApiProject2.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -67,7 +68,8 @@ namespace SpyDuhApiProject2.DataAccess
 
         internal IEnumerable<Spy> GetAll()
         {
-            return _spies;
+            using var connection = new SqlConnection("Server = localhost; Database = SpyDuhDB; Trusted_Connection = True;");
+            //return _spies;
         }
     }
 }
