@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SpyDuhApiProject2.DataAccess;
+using SpyDuhApiProject2.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,17 @@ namespace SpyDuhApiProject2.Controllers
         public IActionResult GetAllSpies()
         {
             return Ok(_spyRepo.GetAll());
+        }
+
+        [HttpPost]
+        public IActionResult AddSpy(Spy newSpy)
+        {
+            if (string.IsNullOrEmpty(newSpy.Alias))
+                return BadRequest("Alias is required");
+
+            _spyRepo.Add(newSpy);
+
+            return Created($"/api/spies/{newSpy.Id}", newSpy);
         }
     }
 }
