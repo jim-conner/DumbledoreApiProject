@@ -1,6 +1,7 @@
 ﻿using SpyDuhApiProject2.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -44,8 +45,17 @@ namespace SpyDuhApiProject2.DataAccess
             // }
         };
 
+        const string _connectionString = "Server = localhost; Database = SpyDuhDB; Trusted_Connection = True;";
+
         internal void Add(SpyDuhMember spyDuhMember)
         {
+            using var connection = new SqlConnection(_connectionString);
+            connection.Open();
+
+            var cmd = connection.CreateCommand();
+
+
+
             _spyDuhMembers.Add(spyDuhMember);
         }
 

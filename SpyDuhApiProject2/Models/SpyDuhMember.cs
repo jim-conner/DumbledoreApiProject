@@ -14,7 +14,7 @@ namespace SpyDuhApiProject2.Models
         public List<Service> Services { get; set; }
     }
 
-    //create Class for Skill and Service 
+    //create Class for Skill and Service ... and Friends/Enemies?
 
     public class Skill
     {
