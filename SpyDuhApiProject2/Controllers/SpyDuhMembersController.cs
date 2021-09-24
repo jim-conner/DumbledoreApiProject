@@ -30,16 +30,16 @@ namespace SpyDuhApiProject2.Controllers
             if (spy == null) 
                 return NotFound("There was no matching spy in the database");
 
-            var spyDuhMember = new SpyDuhMember 
-            {
-                Id = spy.Id,
-                Alias = spy.Alias,
-                AboutMe = spy.AboutMe,
-                Skills = command.Skills,
-                Services = command.Services,
-                Friends = command.Friends,
-                Enemies = command.Enemies,
-            };
+            //var spyDuhMember = new SpyDuhMember 
+            //{
+            //    Id = spy.Id,
+            //    Alias = spy.Alias,
+            //    AboutMe = spy.AboutMe,
+            //    Skills = command.Skills,
+            //    Services = command.Services,
+            //    Friends = command.Friends,
+            //    Enemies = command.Enemies,
+            //};
             
             _spyDuhMembersRepository.Add(spyDuhMember);
 
