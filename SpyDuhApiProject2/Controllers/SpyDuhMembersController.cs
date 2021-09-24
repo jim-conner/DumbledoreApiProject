@@ -23,12 +23,17 @@ namespace SpyDuhApiProject2.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateSpyDuhMember(CreateSpyDuhMemberCommand command)
+        public IActionResult CreateSpyDuhMember(SpyDuhMember newMember)
         {
-            var spy = _spiesRepository.GetById(command.SpyId);
+            var spy = _spiesRepository.GetById(newMember.Id);
 
-            if (spy == null) 
-                return NotFound("There was no matching spy in the database");
+            if (string.IsNullOrEmpty(newMember.Alias))
+            {
+                return BadRequest("Alias is a required fields");
+            }
+
+            //if (spy == null) 
+            //    return NotFound("There was no matching spy in the database");
 
             //var spyDuhMember = new SpyDuhMember 
             //{
@@ -40,10 +45,10 @@ namespace SpyDuhApiProject2.Controllers
             //    Friends = command.Friends,
             //    Enemies = command.Enemies,
             //};
-            
-            _spyDuhMembersRepository.Add(spyDuhMember);
 
-            return Created($"/api/spyDuhMembers/{spy.Id}", spyDuhMember); 
+            _spyDuhMembersRepository.Add(newMember);
+
+            return Created($"/api/spyDuhMembers/{spy.Id}", newMember); 
 
         }
 
