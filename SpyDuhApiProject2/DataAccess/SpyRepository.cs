@@ -9,6 +9,8 @@ namespace SpyDuhApiProject2.DataAccess
 {
     public class SpyRepository
     {
+        const string _connectionString = "Server = localhost; Database = SpyDuhDB; Trusted_Connection = True;";
+
         static List<Spy> _spies = new List<Spy>
         {
             new Spy
@@ -70,9 +72,21 @@ namespace SpyDuhApiProject2.DataAccess
 
         internal void Add(Spy newSpy)
         {
-            newSpy.Id = Guid.NewGuid();
 
-            _spies.Add(newSpy);
+            using var connection = new SqlConnection(_connectionString);
+            connection.Open();
+
+            var cmd = connection.CreateCommand();
+            cmd.CommandText = @"Insert into spies(Alias,AboutMe)
+	                                output inserted.Id
+	                                values (@Alias,@AboutMe)";
+
+            cmd.Parameters.AddWithValue("Alias", newSpy.Alias);
+            cmd.Parameters.AddWithValue("AboutMe", newSpy.AboutMe);
+
+            var newId = (Guid)cmd.ExecuteScalar();
+
+            newSpy.Id = newId;
         }
 
         internal Spy GetById(Guid spyId)
@@ -82,7 +96,7 @@ namespace SpyDuhApiProject2.DataAccess
 
         internal IEnumerable<Spy> GetAll()
         {
-            using var connection = new SqlConnection("Server = localhost; Database = SpyDuhDB; Trusted_Connection = True;");
+            using var connection = new SqlConnection(_connectionString);
             connection.Open();
 
             var cmd = connection.CreateCommand();
