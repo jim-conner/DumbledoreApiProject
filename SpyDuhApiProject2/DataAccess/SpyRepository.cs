@@ -68,6 +68,13 @@ namespace SpyDuhApiProject2.DataAccess
         //    spy.AboutMe = reader["AboutMe"].ToString();
         //}
 
+        internal void Add(Spy newSpy)
+        {
+            newSpy.Id = Guid.NewGuid();
+
+            _spies.Add(newSpy);
+        }
+
         internal Spy GetById(Guid spyId)
         {
             return _spies.FirstOrDefault(spy => spy.Id == spyId);
