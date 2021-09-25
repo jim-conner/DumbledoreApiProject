@@ -21,6 +21,19 @@ namespace SpyDuhApiProject2.Controllers
         }
 
         [HttpGet]
+        public IActionResult GetSpyById(Guid spyId)
+        {
+            var spy = _spyRepo.GetById(spyId);
+
+            if (spy == null)
+            {
+                return NotFound($"No Spy with the id {spyId} was found.");
+            }
+
+            return Ok(spy);
+        }
+
+        [HttpGet]
         public IActionResult GetAllSpies()
         {
             return Ok(_spyRepo.GetAll());
@@ -35,6 +48,21 @@ namespace SpyDuhApiProject2.Controllers
             _spyRepo.Add(newSpy);
 
             return Created($"/api/spies/{newSpy.Id}", newSpy);
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateSpy (Guid spyId, Spy spy)
+        {
+            var spyToUpdate = _spyRepo.GetById(spyId);
+
+            if (spyToUpdate == null)
+            {
+                return NotFound($"Could not find spy with id of {spyId} to update");
+            }
+
+            var updatedBird = _spyRepo.Update(spyId, spy);
+
+            return Ok(updatedBird);
         }
     }
 }

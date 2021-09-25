@@ -63,6 +63,11 @@ namespace SpyDuhApiProject2.DataAccess
             },
         };
 
+        internal object Update(Guid spyId, Spy spy)
+        {
+            throw new NotImplementedException();
+        }
+
         //Spy MapFromReader(SqlDataReader reader)
         //{
         //    var spy = new Spy();
