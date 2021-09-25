@@ -3,7 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Threading.Tasks;
+using Dapper;
+
 
 namespace SpyDuhApiProject2.DataAccess
 {
@@ -63,17 +64,23 @@ namespace SpyDuhApiProject2.DataAccess
             },
         };
 
-        internal object Update(Guid spyId, Spy spy)
+        internal object Update(Guid id, Spy spy)
         {
-            throw new NotImplementedException();
-        }
+            //using dapper this time
+            using var db = new SqlConnection(_connectionString);
 
-        //Spy MapFromReader(SqlDataReader reader)
-        //{
-        //    var spy = new Spy();
-        //    spy.Id = reader[reader]
-        //    spy.AboutMe = reader["AboutMe"].ToString();
-        //}
+            var sql = @"Update Spies
+                        Set Alias = @alias,
+	                        AboutMe = @aboutme
+                        Output inserted.*
+                        Where Id = @id";
+
+            spy.Id = id;
+            var updatedSpy = db.QuerySingleOrDefault<Spy>(sql, spy);
+
+            return updatedSpy;
+
+        }
 
         internal void Add(Spy newSpy)
         {
@@ -122,5 +129,13 @@ namespace SpyDuhApiProject2.DataAccess
 
             return spies;
         }
+
+        //don't need this anymore
+        //Spy MapFromReader(SqlDataReader reader)
+        //{
+        //    var spy = new Spy();
+        //    spy.Id = reader[reader]
+        //    spy.AboutMe = reader["AboutMe"].ToString();
+        //}
     }
 }
