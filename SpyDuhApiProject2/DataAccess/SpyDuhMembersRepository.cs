@@ -47,16 +47,14 @@ namespace SpyDuhApiProject2.DataAccess
 
         const string _connectionString = "Server = localhost; Database = SpyDuhDB; Trusted_Connection = True;";
 
-        internal void Add(SpyDuhMember spyDuhMember)
+        internal void Add(CreateSpyDuhMemberCommand spyDuhMember)
         {
             using var connection = new SqlConnection(_connectionString);
             connection.Open();
 
             var cmd = connection.CreateCommand();
-
-
-
-            _spyDuhMembers.Add(spyDuhMember);
+            cmd.CommandText = @"";
+            //_spyDuhMembers.Add(spyDuhMember);
         }
 
         internal IEnumerable<SpyDuhMember> GetAll()

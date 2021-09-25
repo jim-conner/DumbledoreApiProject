@@ -46,7 +46,7 @@ namespace SpyDuhApiProject2.Controllers
             //    Enemies = command.Enemies,
             //};
 
-            _spyDuhMembersRepository.Add(newMember);
+            //_spyDuhMembersRepository.Add(newMember);
 
             return Created($"/api/spyDuhMembers/{spy.Id}", newMember); 
 
