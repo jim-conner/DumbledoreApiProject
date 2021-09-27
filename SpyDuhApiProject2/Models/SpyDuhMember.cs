@@ -14,8 +14,6 @@ namespace SpyDuhApiProject2.Models
         public List<Service> Services { get; set; }
     }
 
-    //create Class for Skill and Service ... and Friends/Enemies?
-
     public class Skill
     {
         public Guid Id { get; set; }
@@ -34,11 +32,16 @@ namespace SpyDuhApiProject2.Models
     public class Friend
     {
         public Guid Id { get; set; }
+        public Guid SpyId { get; set; }
+        public Guid FriendId { get; set; }
+
     }
 
     public class Enemy
     {
         public Guid Id { get; set; }
+        public Guid SpyId { get; set; }
+        public Guid EnemyId { get; set; }
     }
 
 }
