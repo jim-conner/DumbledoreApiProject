@@ -20,7 +20,7 @@ namespace SpyDuhApiProject2.Controllers
             _spyRepo = new SpyRepository();
         }
 
-        [HttpGet]
+        [HttpGet("{spyId}")]
         public IActionResult GetSpyById(Guid spyId)
         {
             var spy = _spyRepo.GetById(spyId);

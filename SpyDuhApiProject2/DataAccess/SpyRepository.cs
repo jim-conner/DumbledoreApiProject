@@ -103,7 +103,20 @@ namespace SpyDuhApiProject2.DataAccess
 
         internal Spy GetById(Guid spyId)
         {
-            return _spies.FirstOrDefault(spy => spy.Id == spyId);
+            //using dapper this time
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = @"Select *
+                        From Spies
+                        Where id = @id";
+
+            var spy = db.QuerySingleOrDefault<Spy>(sql, new { id = spyId });
+
+            if (spy == null) return null;
+
+            return spy;
+
+            //return _spies.FirstOrDefault(spy => spy.Id == spyId);
         }
 
         internal IEnumerable<Spy> GetAll()
