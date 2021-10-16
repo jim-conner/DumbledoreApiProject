@@ -13,11 +13,11 @@ namespace SpyDuhApiProject2.Controllers
     [ApiController]
     public class SpiesController : ControllerBase
     {
-        SpyRepository _spyRepo;
+        private SpyRepository _spyRepo;
 
-        public SpiesController()
+        public SpiesController(SpyRepository spyRepo)
         {
-            _spyRepo = new SpyRepository();
+            _spyRepo = spyRepo;
         }
 
         [HttpGet("{spyId}")]

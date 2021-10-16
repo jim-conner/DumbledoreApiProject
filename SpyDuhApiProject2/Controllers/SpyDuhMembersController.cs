@@ -18,7 +18,7 @@ namespace SpyDuhApiProject2.Controllers
 
         public SpyDuhMembersController()
         {
-            _spiesRepository = new SpyRepository(); 
+            //_spiesRepository = new SpyRepository();
             _spyDuhMembersRepository = new SpyDuhMembersRepository();
         }
 
